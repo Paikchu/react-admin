@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import {ColorModeContext, useMode} from './theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import Topbar from './scenes/global/Topbar';
+import Dashboard from './scenes/dashboard';
+import AdminSidebar from './scenes/global/AdminSidebar';
+import {useState} from "react";
+import CompanyTable from './scenes/table/company';
+import UserTable from './scenes/table/user';
+import {Routes, Route} from "react-router-dom";
+import GameTable from './scenes/table/game';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [theme, colorMode] = useMode();
+  const [isSidebar] = useState(true);
+  return(
+  <ColorModeContext.Provider value = {colorMode}>
+    <ThemeProvider theme = {theme}>
+      <CssBaseline />
+      <div className='app'>
+        <AdminSidebar/>
+        <main className='content'>
+          <Topbar/>
+          <Routes>
+            <Route path = "/table_users" element={<UserTable/>}/>
+            <Route path = "/table_companies" element={<CompanyTable/>}/>
+            <Route path ='/table_games' element = {<GameTable/>}/>
+          </Routes>
+        </main>
+      </div>
+    </ThemeProvider>
+  </ColorModeContext.Provider>);
 }
 
 export default App;
