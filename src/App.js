@@ -8,6 +8,7 @@ import CompanyTable from './scenes/table/company';
 import UserTable from './scenes/table/user';
 import {Routes, Route} from "react-router-dom";
 import GameTable from './scenes/table/game';
+import OrderTable from './scenes/table/order';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -24,6 +25,7 @@ function App() {
             <Route path = "/table_users" element={<UserTable/>}/>
             <Route path = "/table_companies" element={<CompanyTable/>}/>
             <Route path ='/table_games' element = {<GameTable/>}/>
+            <Route path='/table_order' element ={<OrderTable/>}/>
           </Routes>
         </main>
       </div>

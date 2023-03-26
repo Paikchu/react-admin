@@ -112,6 +112,13 @@ const AdminSidebar = () =>{
                     selected={selected}
                     setSelected={setSelected}
                 />
+                <Item
+                    title="Order"
+                    to="/table_Order"
+                    icon={<SportsEsportsIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                />
 
                 </Box>
 

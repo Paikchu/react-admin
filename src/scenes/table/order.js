@@ -1,55 +1,47 @@
 import { DataGrid } from "@mui/x-data-grid";
-import {Box, IconButton, Typography, useTheme} from "@mui/material";
+import {Box,useTheme} from "@mui/material";
 import {tokens} from '../../theme'
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import Switch from '@mui/material/Switch';
 
-const UserTable = (props) => {
+
+
+
+const OrderTable = (props) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [cellList, setcellList] = useState([]);
     const columns = [
     { 
-        field: "u_id", 
-        headerName: "ID" 
+        field: "o_id", 
+        headerName: "Order ID",
     },
     {
-      field: "u_name",
-      headerName: "Name",
+        field: "u_name",
+        headerName: "User Name",
+        flex: 1,
+      },
+    {
+      field: "g_name",
+      headerName: "Game Name",
       flex: 1,
-      cellClassName: "name-column--cell",
     },
     {
-      field: "u_email",
-      headerName: "Email",
+      field: "o_value",
+      headerName: "Value",
       flex: 1,
+      editable: true,
     },
     {
-      field: "u_permission",
-      headerName: "Access Level",
+      field: "o_time",
+      headerName: "Date",
       flex: 1,
-      renderCell: (param) => {
-        const onChange = (event) =>{
-            fetch('/admin-access-u',{
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({u_id: param.id, u_permission: param.value})
-            })
-            .then(response => response.json())
-            .then(data => setcellList(data))
-        }
-        return (<Switch checked = {param.value} onChange={onChange} />)
-      }
+      
     },
   ];
   useEffect(() => {
-    fetch('/admin-table-user',{
+    fetch('/admin-table-order',{
         method: 'get'
     })
     .then(response => response.json())
@@ -57,7 +49,7 @@ const UserTable = (props) => {
   }, [])
     return (
         <Box margin="20px">
-            <Header title = "User"/>
+            <Header title = "Order"/>
             <Box 
             margin="40px 0 0 0" 
             height = "75vh" 
@@ -88,14 +80,16 @@ const UserTable = (props) => {
             }}
             >
             <DataGrid 
-                disableRowSelectionOnClick 
-                checkboxSelection 
-                rows={cellList} 
-                columns={columns} 
-                getRowId = {(row)=>row.u_id}/>
+            disableRowSelectionOnClick 
+            editMode="cell" 
+            checkboxSelection 
+            rows={cellList} 
+            columns={columns} 
+            getRowId = {(row)=>row.o_id}
+            />
             </Box>
         </Box>
     );
 };
 
-export default UserTable;
+export default OrderTable;
