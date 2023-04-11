@@ -85,13 +85,6 @@ const AdminSidebar = () =>{
 
                 <Box paddingLeft={isCollapsed ? undefined : "10%"}>
                 <Item
-                    title="Summary"
-                    to="/"
-                    icon={<HomeOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    />
-                <Item
                     title="Company"
                     to="/table_companies"
                     icon={<CorporateFareIcon />}
